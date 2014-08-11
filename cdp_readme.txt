@@ -86,3 +86,41 @@ toolset=msvc-12.0
  -Zm112
 
 
+=========================
+windows config
+=========================
+
+#define BOOST_COMPILER_CONFIG  "boost/config/compiler/visualc.hpp"
+#define BOOST_PLATFORM_CONFIG  "boost/config/platform/win32.hpp"
+
+// strongly recommended to define BOOST_FILESYSTEM_NO_DEPRECATED. 
+// place before including system headers. http://www.boost.org/doc/libs/1_56_0/libs/filesystem/doc/index.htm
+// however, can't define this when building boost.
+#if !defined(CDP_BUILDING_BOOST) 
+# define BOOST_FILESYSTEM_NO_DEPRECATED
+#endif //!defined(CDP_BUILDING_BOOST)
+
+// print lib name when linking
+#define BOOST_LIB_DIAGNOSTIC
+
+
+/*
+#if !defined(BUILDING_BOOST)
+# if !defined(BOOST_ALL_DYN_LINK)
+#   define BOOST_ALL_DYN_LINK
+# endif //!defined(BOOST_ALL_DYN_LINK)
+//# define BOOST_FILESYSTEM_NO_DEPRECATED
+#endif //!defined(BUILDING_BOOST)
+*/
+
+// todo - not needed in 1.56 ?
+// vs12 does not support this. see http://msdn.microsoft.com/en-us/library/vstudio/dn457344.aspx
+// #define BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
+
+
+// thread lib
+
+//BOOST_THREAD_VERSION default is 2
+#define BOOST_THREAD_VERSION 4 
+// BOOST_THREAD_PROVIDES_THREAD_EQ ??
+// BOOST_THREAD_PROVIDES_CONDITION ??
